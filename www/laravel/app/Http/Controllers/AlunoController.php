@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AlunoRequest;
 use App\Aluno as Aluno;
+use Illuminate\Support\Facades\Gate;
 
 class AlunoController extends Controller
 {
 
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
     public function listar()
     {
+      //  if(Gate::denies('listar', new Aluno))
+      //  {
+      //    abort(403, 'Acesso Negado');
+      //  }
        return view('listar', ['aluno'=> Aluno::paginate(5)]);
     }
 

@@ -19,11 +19,19 @@ Route::get('/', function () {
 //   return "Página dos Alunos Lindos! $id";
 // }]);
 
+
+Route::group(['middleware' => 'web'], function() {
+    
+    Auth::routes();
+    Route::get('/home', 'HomeController@index');
+    Route::get('aluno/listar', 'AlunoController@listar');
+
+});
+
+
 Route::get('olamundo/index/{nome}', 'OlaMundoController@index');
 
 Route::get('olamundo/view', 'OlaMundoController@view');
-
-Route::get('aluno/listar', 'AlunoController@listar');
 
 Route::get('aluno/inserir', 'AlunoController@inserir');
 
@@ -32,3 +40,9 @@ Route::get('aluno/alterar/{id}', 'AlunoController@alterar');
 Route::post('aluno/salvar/{id?}', 'AlunoController@salvar');
 
 Route::get('aluno/excluir/{id}', 'AlunoController@excluir');
+
+Route::get('estados', 'CidadeController@index');
+
+Route::get('cidades/{id}', 'CidadeController@cidades');
+
+
